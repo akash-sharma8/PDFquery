@@ -1,64 +1,153 @@
-import Image from "next/image";
+"use client"
+import React from 'react';
+import Link from 'next/link';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ 
+      backgroundColor: '#FFFFFF', 
+      minHeight: '100vh', 
+      color: '#000000',
+      fontFamily: 'Satoshi, sans-serif'
+    }}>
+      {/* Imported Navbar Component */}
+      {/* <Navbar /> */}
+
+      {/* Main Hero Section */}
+      <main style={{
+        padding: '30px 5vw 40px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        
+        {/* Subtle Feature Tag */}
+        <div style={{
+          background: '#f5f5f5',
+          border: '1px solid #e5e5e5',
+          padding: '6px 16px',
+          borderRadius: '999px',
+          fontSize: '13px',
+          fontWeight: 500,
+          marginBottom: '24px',
+          letterSpacing: '-0.01em'
+        }}>
+          Next-Gen Document Intelligence
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Hero Title */}
+        <h1 style={{
+          fontFamily: 'Gerbil, serif',
+          fontSize: 'clamp(40px, 6vw, 72px)',
+          fontWeight: 400,
+          lineHeight: '1.1',
+          letterSpacing: '-0.02em',
+          maxWidth: '850px',
+          margin: '0 0 24px 0',
+          color: '#000000'
+        }}>
+          Chat with your PDFs <br />
+          <span style={{ color: '#666666' }}>and find answers instantly.</span>
+        </h1>
+
+        {/* Hero Subtitle */}
+        <p style={{
+          fontSize: 'clamp(16px, 2vw, 20px)',
+          fontWeight: 400,
+          color: '#555555',
+          maxWidth: '600px',
+          lineHeight: '1.5',
+          margin: '0 0 40px 0'
+        }}>
+          Upload your documents and let our engine extract insights, summarize data, and answer complex queries in real-time.
+        </p>
+
+        {/* Primary Call to Action Buttons */}
+        <div style={{ 
+          display: 'flex', 
+          gap: '16px', 
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        }}>
+          <Link href="/upload">
+            <button style={{
+              background: '#000000',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '999px',
+              padding: '16px 36px',
+              fontSize: '16px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = '#222222'}
+            onMouseLeave={e => e.currentTarget.style.background = '#000000'}
+            >
+              Get Started for Free
+            </button>
+          </Link>
+
+          <Link href="/chat">
+            <button style={{
+              background: 'transparent',
+              color: '#000000',
+              border: '1px solid #E5E5E5',
+              borderRadius: '999px',
+              padding: '16px 36px',
+              fontSize: '16px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#f9f9f9';
+              e.currentTarget.style.borderColor = '#adadad';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.borderColor = '#E5E5E5';
+            }}
+            >
+              Open Active Chat
+            </button>
+          </Link>
         </div>
+
+        {/* Dynamic Feature Preview Block */}
+        <div style={{
+          marginTop: '80px',
+          width: '100%',
+          maxWidth: '1000px',
+          background: '#FAFAFA',
+          border: '1px solid #ECECEC',
+          borderRadius: '24px',
+          padding: '40px',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '32px',
+          textAlign: 'left'
+        }}>
+          <div>
+            <h3 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 10px 0' }}>1. Upload PDFs</h3>
+            <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5', margin: 0 }}>Drop your manuals, research papers, or legal financial sheets securely into our drive.</p>
+          </div>
+          <div>
+            <h3 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 10px 0' }}>2. Smart Processing</h3>
+            <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5', margin: 0 }}>Our context engine instantly reads, vectorizes, and map-indexes your uploaded information.</p>
+          </div>
+          <div>
+            <h3 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 10px 0' }}>3. Ask Anything</h3>
+            <p style={{ color: '#666', fontSize: '14px', lineHeight: '1.5', margin: 0 }}>Get comprehensive, deeply accurate contextual text answers backed directly by citations.</p>
+          </div>
+        </div>
+
       </main>
     </div>
   );

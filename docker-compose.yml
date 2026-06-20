@@ -1,0 +1,30 @@
+services:
+  nextjs:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - chromadb
+    networks:
+      - app-network
+
+  chromadb:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    environment:
+      - CHROMA_SERVER_CORS_ALLOW_ORIGINS=["*"]
+    volumes:
+      - chroma_data:/chroma/chroma
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  chroma_data:
