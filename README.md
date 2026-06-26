@@ -4,7 +4,14 @@ An AI-powered PDF Question Answering system built using Next.js, ChromaDB, Huggi
 
 Users can upload PDF documents, generate embeddings, store them in a vector database, and ask natural language questions to retrieve context-aware answers from the uploaded documents.
 
+## 🎥 Demo
+
+<p align="center">
+  <img src="./assets/demo.gif" alt="PDF AI Assistant Demo" width="900">
+</p>
+
 ---
+
 
 ## Features
 
