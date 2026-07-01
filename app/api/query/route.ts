@@ -1,9 +1,14 @@
 import { queryPDF } from "@/services/queryService";
-import { NextResponse } from "next/server";
+import {NextRequest,NextResponse} from "next/server";
 
-export async function POST(req){
+interface QueryRequest {
+    question: string;
+
+}
+
+export async function POST(req:NextRequest) {
     try {
-        const {question} = await req.json();
+        const {question}: QueryRequest = await req.json();
         if(!question?.trim()){
             return NextResponse.json(
                 {error:"Queston is required"},

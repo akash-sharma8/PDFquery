@@ -2,7 +2,7 @@
 import pdf from 'pdf-parse';
 
 
-export async function parsePdfBuffer(buffer) {
+export async function parsePdfBuffer(buffer:Buffer):Promise<string> {
     const pdfData = await pdf(buffer);
     if (!pdfData.text || pdfData.text.trim().length === 0) {
         throw new Error("EMPTY_PDF_TEXT");

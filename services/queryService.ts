@@ -3,7 +3,27 @@ import { getCollection } from "@/lib/chromadb";
 import { createEmbedding } from "../lib/embedding";
 import { generateAnswer } from "@/lib/llm";
 
-export async function queryPDF(question) {
+interface QueryResult {
+    answer: string;
+    sources: { source: string; chunk: number }[];
+}
+
+interface Metadata {
+    source: string;
+    chunk: number;
+    timestamp: number;
+}
+interface PDFMetadata {
+  source: string;
+  chunk: number;
+  timestamp: number;
+}
+
+interface Source{
+    source: string;
+    chunk: number;
+}
+export async function queryPDF(question: string): Promise<QueryResult> {
 
     try {
 
@@ -17,7 +37,7 @@ export async function queryPDF(question) {
         })
 
 
-        const documents = result.documents?.[0] || [];
+        const documents = result.documents?.[0] ?? [];
         if (!documents.length) {
             return {
                 answer:
@@ -25,8 +45,7 @@ export async function queryPDF(question) {
                 sources: []
             };
         }
-        const metadatas = result.metadatas?.[0] || [];
-
+      
         const context = documents.join("\n\n");
 
         const answer = await generateAnswer(
@@ -35,10 +54,14 @@ export async function queryPDF(question) {
         )
 
 
-        const sources = metadatas.map((meta) => ({
-            source: meta.source,
-            chunk: meta.chunk,
-        }));
+       const metadatas = result.metadatas?.[0] ?? [];
+
+const sources: Source[] = metadatas
+  .filter((meta): meta is NonNullable<typeof meta> => meta !== null)
+  .map((meta) => ({
+    source: String(meta.source),
+    chunk: Number(meta.chunk),
+  }));
         return {
             answer,
             sources,

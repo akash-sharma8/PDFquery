@@ -1,10 +1,9 @@
 import { InferenceClient } from "@huggingface/inference";
 
 
-const hf = new InferenceClient(process.env.HF_TOKEN, {
-  provider: "hf-inference"
-});
-export async function generateAnswer(question, context) {
+const hf = new InferenceClient(process.env.HF_TOKEN);
+export async function generateAnswer(question:string
+  , context:string):Promise<string> {
   const response = await hf.chatCompletion({
     model: "meta-llama/Llama-3.3-70B-Instruct",
     messages: [
@@ -51,5 +50,5 @@ ${question}
     max_tokens: 500
   });
 
-  return response.choices[0].message.content;
+  return response.choices[0].message.content??""
 }

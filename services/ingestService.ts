@@ -3,10 +3,17 @@ import { parsePdfBuffer } from "@/lib/pdfParser"
 import { createChunks } from "../lib/chunker"
 import { createEmbedding } from "../lib/embedding"
 
-export async function runIngestPipeline(fileBuffer, fileName) {
+const CHUNK_SIZE = 1000;
+
+interface PipelineSummary {
+  chunksCount: number;
+  fileName: string;
+}
+
+export async function runIngestPipeline(fileBuffer: Buffer, fileName: string): Promise<PipelineSummary> {
     const fullText = await parsePdfBuffer(fileBuffer)
 
-    const chunks = await createChunks(fullText, 1000);
+    const chunks = await createChunks(fullText, CHUNK_SIZE);
 
     const collection = await getCollection();
 

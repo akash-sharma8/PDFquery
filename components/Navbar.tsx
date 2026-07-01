@@ -50,8 +50,8 @@ const Navbar = () => {
                 fontFamily: "Satoshi, sans-serif", fontWeight: 500,
                 fontSize: "16px", color: "#000000", textDecoration: "none", transition: "all 0.3s ease",
               }}
-              onMouseEnter={e => e.target.style.opacity = "0.7"}
-              onMouseLeave={e => e.target.style.opacity = "1"}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.opacity = "0.7"}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.opacity = "1"}
             >
               {l.name}
             </Link>
@@ -63,8 +63,8 @@ const Navbar = () => {
               fontFamily: "Satoshi, sans-serif", fontWeight: 500,
               fontSize: "15px", cursor: "pointer", transition: "0.3s",
             }}
-              onMouseEnter={e => e.target.style.background = "#333"}
-              onMouseLeave={e => e.target.style.background = "#111"}
+              onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = "#333"}
+              onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = "#111"}
             >
               Get in touch
             </button>

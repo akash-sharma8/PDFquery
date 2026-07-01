@@ -1,15 +1,15 @@
 import { runIngestPipeline } from "@/services/ingestService";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 
 
-export async function POST(request) {
+export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
         const file = formData.get('file')
 
 
-        if (!file) {
+        if (!(file instanceof File)) {
             return NextResponse.json({
                 error: 'No file provided'
             },
@@ -35,7 +35,7 @@ export async function POST(request) {
     } catch (error) {
         console.error("Critical execution breakdown at [POST /api/upload]:", error);
 
-        if (error.message === "EMPTY_PDF_TEXT") {
+        if (error instanceof Error && error.message === "EMPTY_PDF_TEXT") {
             return NextResponse.json({ error: "The uploaded document contains zero extractable characters." }, { status: 422 });
         }
 

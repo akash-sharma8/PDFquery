@@ -1,20 +1,25 @@
 'use client'
 
-import { useState } from 'react';
+import { ChangeEvent, FormEvent,useState } from 'react';
+
+interface UploadStatus {
+  type: "success" | "error";
+  message: string;
+}
 
 export default function UploadForm() {
-  const [fileName, setFileName] = useState('');
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadStatus, setUploadStatus] = useState(null);
+  const [fileName, setFileName] = useState<string>('');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null);
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>):void => {
     const file = e.target.files?.[0];
     if (file) {
       setFileName(file.name);
     }
   };
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     const form = e.currentTarget;
     setIsUploading(true);
@@ -26,8 +31,7 @@ export default function UploadForm() {
         method: 'POST',
         body: formData
       });
-      const data = await response.json();
-
+      const data: { message?: string } = await response.json();
       if (response.ok) {
         
         setUploadStatus({
@@ -41,7 +45,8 @@ export default function UploadForm() {
         setUploadStatus({ type: 'error', message: 'Upload failed. Please try again.' });
       }
     } catch (error) {
-      setUploadStatus({ type: 'error', message:error.message });
+      const message = error instanceof Error ? error.message : String(error);
+      setUploadStatus({ type: 'error', message });
     } finally {
       setIsUploading(false);
     }
